@@ -472,11 +472,12 @@ function _onDocumentKeyDown(event) {
         }
 	if (event.key == "Control" && !GAME.fight)
 	{
+		console.log('hello');
 		if (GAME.log) {
 			GAME.log = false;
 		}
 		else {
-			GAME.log = true;
+			GAME.log = false;
 		}	
     }
 }
