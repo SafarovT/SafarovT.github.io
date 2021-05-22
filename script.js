@@ -105,6 +105,7 @@ var GAME = {
     fight: false,
     report: '',
     stage: 'game',
+	log: false,
 }
 
 var SHOPKEEPER = {
@@ -280,8 +281,10 @@ function enemyTurn() {
         setTimeout(restartGame, 5000);
     }
     else {
-        alert(GAME.report + 'Здоровье вашего персонажа после этого хода = ' + CHARACTER.hp);
-    }
+		if(GAME.log) {
+			alert(GAME.report + 'Здоровье вашего персонажа после этого хода = ' + CHARACTER.hp);
+		}
+	}
 }
 
 function heal() {
@@ -379,20 +382,23 @@ function fight(enemy) {
         dmg = (rollDice(CHARACTER.dmg) + CHARACTER.dmgAdd)* 2;
         enemy.hp -= dmg;
     }
-
-    if (dmg == 0) {
-        alert('Выкинув ' + result + ', вы промахнулись своей атакой.');
-    }
-    else if (enemy.hp <= 0) {
-        GAME.enemies.splice(GAME.enemies.indexOf(enemy), 1);
-        alert('Вы сразили противника своим мощным ударом.');
-    }
-    else if (result == 20) {
-        alert('Вы выкинули 20, это критический успех: вы наносите двойной урон (' + dmg + ').');
-    }
-    else {
-        alert('Вы попали по противнику, выкинув ' + result + ', и нанесли ' + dmg + ' урона.');
-    }
+	if (GAME.log)
+	{
+		if (dmg == 0) {
+			alert('Выкинув ' + result + ', вы промахнулись своей атакой.');
+		}
+		else if (enemy.hp <= 0) {
+			GAME.enemies.splice(GAME.enemies.indexOf(enemy), 1);
+			alert('Вы сразили противника своим мощным ударом.');
+		}
+		else if (result == 20) {
+			alert('Вы выкинули 20, это критический успех: вы наносите двойной урон (' + dmg + ').');
+		}
+		else {
+			alert('Вы попали по противнику, выкинув ' + result + ', и нанесли ' + dmg + ' урона.');
+		}
+	}
+    
 
 }
 
@@ -464,5 +470,13 @@ function _onDocumentKeyDown(event) {
             CHARACTER.outfit.src = "img/agility_outfit.png";
             update();
         }
+	if (event.key == "Control" && !GAME.fight)
+	{
+		if (GAME.log) {
+			GAME.log = false;
+		}
+		else {
+			GAME.log = true;
+		}	
     }
 }
