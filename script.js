@@ -453,18 +453,21 @@ function _onDocumentKeyDown(event) {
             CHARACTER.equipment = 'iron sword';
             CHARACTER.dmgAdd += 5;
             CHARACTER.outfit.src = "img/strength_outfit.png";
+	    draw();
             update();
         }
         else if (event.key == "2") {
             CHARACTER.equipment = 'armor';
             CHARACTER.def += 5;
             CHARACTER.outfit.src = "img/armored_outfit.png";
+	    draw();
             update();
         }
         else if (event.key == "3") {
             CHARACTER.equipment = 'elf sword';
             CHARACTER.aim += 5;
             CHARACTER.outfit.src = "img/agility_outfit.png";
+	    draw();
             update();
         }
 	}
